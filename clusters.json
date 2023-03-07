@@ -1,0 +1,13 @@
+[  
+    {    
+        "chat_id": 6229440871,    
+        "keyword_groups": [
+            { "keywords": ["Buy", "Purchase", "Get"] },
+            { "keywords": ["Dog", "Pet", "Cat"] }
+        ],
+        "negative_words": ["Miami", "New York", "Boston"],
+        "min_price": 200,
+        "max_price": 300
+    }
+]
+
