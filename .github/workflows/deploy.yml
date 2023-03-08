@@ -30,7 +30,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         
     - name: Deploy to EC2 instance
-      uses: appleboy/scp-action@v1.04
+      uses: appleboy/scp-action@master
       with:
         host: 3.75.194.12
         username: ubuntu
@@ -44,7 +44,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         
     - name: Run deployment script on EC2 instance
-      uses: appleboy/ssh-action@v0.17.2
+      uses: appleboy/ssh-action@master
       with:
         host: 3.75.194.12
         username: ubuntu
