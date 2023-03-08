@@ -17,6 +17,9 @@ jobs:
       with:
         go-version: 1.20
         
+    - name: Install Telegram Bot Api Dependency
+      run: go get -u github.com/go-telegram-bot-api/telegram-bot-api
+      
     - name: Build Go binary
       run: go build -o telebot
       
