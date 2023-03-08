@@ -65,7 +65,7 @@ jobs:
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         CHAT_ID: ${{ secrets.CHAT_ID }}
-        AWS_S3_BUCKET: arn:aws:s3:::rootstergg-deploy-bucket
+        AWS_S3_BUCKET: rootstergg-deploy-bucket
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         EC2_INSTANCE_PASSWORD: ${{ secrets.EC2_INSTANCE_PASSWORD }}
