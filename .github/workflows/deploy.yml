@@ -24,7 +24,7 @@ jobs:
           source $HOME/.bashrc
         
     - name: Install Telegram Bot Api Dependency
-      run: go get -u github.com/go-telegram-bot-api/telegram-bot-api
+      run: go get -u github.com/go-telegram-bot-api/telegram-bot-api/v5
       
     - name: Build Go binary
       run: go build -o telebot
