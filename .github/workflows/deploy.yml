@@ -16,6 +16,12 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.20
+      
+    - name: Set up Go environment
+      run: |
+          mkdir -p $HOME/go
+          echo 'export GOPATH=$HOME/go' >> $HOME/.bashrc
+          source $HOME/.bashrc
         
     - name: Install Telegram Bot Api Dependency
       run: go get -u github.com/go-telegram-bot-api/telegram-bot-api
