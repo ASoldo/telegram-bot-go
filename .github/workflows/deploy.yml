@@ -62,7 +62,7 @@ jobs:
         key: ${{ secrets.EC2_INSTANCE_PRIVATE_KEY }}
         script: |
           sudo unzip deployment-package.zip/deployment-package.zip -d /opt/telebot
-          sudo nohup /opt/telebot --bot-token=$BOT_TOKEN --chat-id=$CHAT_ID --clusters-json=/opt/clusters.json > /var/log/telebot.log 2>&1 &
+          sudo nohup /opt/telebot/telebot --bot-token=$BOT_TOKEN --chat-id=$CHAT_ID --clusters-json=/opt/telebot/clusters.json > /var/log/telebot.log 2>&1 &
         
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
