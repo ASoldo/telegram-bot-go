@@ -1,0 +1,63 @@
+name: Deploy to EC2 instance
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+        
+    - name: Build Go binary
+      run: go build -o telebot
+      
+    - name: Upload deployment package to S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --exclude '*' --include '*.zip'
+      env:
+        AWS_S3_BUCKET: arn:aws:s3:::rootstergg-deploy-bucket
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
+    - name: Deploy to EC2 instance
+      uses: appleboy/scp-action@v2
+      with:
+        host: 3.75.194.12
+        username: ubuntu
+        key: ${{ secrets.EC2_INSTANCE_PRIVATE_KEY }}
+        source: deployment-package.zip
+        target: ~/deployment-package.zip
+        
+      env:
+        AWS_S3_BUCKET: arn:aws:s3:::rootstergg-deploy-bucket
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
+    - name: Run deployment script on EC2 instance
+      uses: appleboy/ssh-action@v0.12.0
+      with:
+        host: 3.75.194.12
+        username: ubuntu
+        key: ${{ secrets.EC2_INSTANCE_PRIVATE_KEY }}
+        script: |
+          unzip deployment-package.zip -d /opt/telebot
+          nohup /opt/telebot/main.sh --bot-token=$BOT_TOKEN --chat-id=$CHAT_ID --clusters-json=/opt/telebot/clusters.json > /var/log/telebot.log 2>&1 &
+        
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+        AWS_S3_BUCKET: arn:aws:s3:::rootstergg-deploy-bucket
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        EC2_INSTANCE_PASSWORD: ${{ secrets.EC2_INSTANCE_PASSWORD }}
+        EC2_INSTANCE_PRIVATE_KEY: ${{ secrets.EC2_INSTANCE_PRIVATE_KEY }}
