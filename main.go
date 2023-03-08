@@ -1,4 +1,5 @@
 // go run main.go --bot-token="6015443726:AAG8DVXj4o9yLPw5aE4hF93iYPOVQRUylaI" --chat-id=6229440871 --clusters-json=./clusters.json
+// Github Actions
 package main
 
 import (
