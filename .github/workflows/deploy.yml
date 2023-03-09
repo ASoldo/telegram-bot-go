@@ -65,7 +65,7 @@ jobs:
           sudo rm -rf deployment-package.zip
           sudo systemctl daemon-reload
           sudo systemctl enable telebot
-          sudo systemctl start telebot --bot-token=$BOT_TOKEN --chat-id=$CHAT_ID --clusters-json=/opt/telebot/clusters.json > /var/log/telebot.log 2>&1 &
+          sudo systemctl start telebot
         
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
