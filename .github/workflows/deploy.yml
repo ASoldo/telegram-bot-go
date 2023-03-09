@@ -23,7 +23,7 @@ jobs:
           echo 'export GOPATH=$HOME/go' >> $HOME/.bashrc
           source $HOME/.bashrc
         
-    - name: Install Telegram Bot Api Dependency
+    - name: Install project GO.MOD dependencies
       run: go mod download
       
     - name: Build Go binary
