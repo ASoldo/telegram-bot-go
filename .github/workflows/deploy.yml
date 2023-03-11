@@ -31,7 +31,7 @@ jobs:
       
     - name: Build Go binary
       run: |
-        go build main.go -o telebot
+        go build -o telebot
         zip deployment-package.zip telebot clusters.json
       
     - name: Upload deployment package to S3
