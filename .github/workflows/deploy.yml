@@ -25,10 +25,13 @@ jobs:
         
     - name: Install project GO.MOD dependencies
       run: go mod download
+    
+    - name: Run Tests
+      run: go test -cover
       
     - name: Build Go binary
       run: |
-        go build -o telebot
+        go build main.go -o telebot
         zip deployment-package.zip telebot clusters.json
       
     - name: Upload deployment package to S3
